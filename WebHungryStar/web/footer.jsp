@@ -17,13 +17,17 @@
                         <li><a href=".">HungryStar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-center">
-                        <li><a href="#"><span class="glyphicon glyphicon-backward"/></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-play"/></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-forward"/></a></li>
+                        <li><a href="#" onclick="atras()"><span class="glyphicon glyphicon-backward"/></a></li>
+                        <li><a href="#" onclick="reproducir()"><span class="glyphicon glyphicon-play"/></a></li>
+                        <li><a href="#" onclick="adelante()"><span class="glyphicon glyphicon-forward"/></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"/><p class="navbar-text">asd</p></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-user"/>Registrarte</a></li>
+                        <li>
+                            <a href="#"><span class="glyphicon glyphicon-log-in" style="vertical-align: middle"/>&nbsp;Ingresar</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="glyphicon glyphicon-user" style="vertical-align: middle"/>&nbsp;Registrarte&nbsp;</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -32,6 +36,7 @@
 
     </div>
 </nav>
+
 </body>
 </html>
 

@@ -14,3 +14,13 @@ function divRegistrarse(){
     $('#divLogin').toggle();
     $('#divRegistrarse').toggle();
 }
+
+function reproducir(){
+    console.log("XD");
+}
+function atras(){
+    console.log("DX");
+}
+function adelante(){
+    console.log("xd");
+}
