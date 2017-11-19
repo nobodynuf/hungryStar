@@ -6,63 +6,16 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="header.jsp" %>
+<script>
+    cambiarTitulo("Inicio");
+</script>
 
-
-<h1>Hello World!</h1>
-<c:choose>
-    <c:when test="${sessionScope.usuario == null}">
-        <a onclick="divRegistrarse()">Registrarse</a>
-        <div id="divRegistrarse" class="woa fa fa-level-down" style="display: none">
-            <form action="/AccionLogin" method="POST">
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th colspan="2">Registro</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Nick</td>
-                            <td>
-                                <input type="text" name="txtUsername" value="" required="yes"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Contraseña</td>
-                            <td>
-                                <input type="password" name="txtPassword" value="" required="yes"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Nombre</td>
-                            <td>
-                                <input type="text" name="txtNombre" value="" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="1" >
-                                <button type="submit">Guardar</button> 
-                            </td>
-                            <td>
-                                <button type="reset">Limpiar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </form>
-        </div>
-        <a onclick="divLogin()">Ingresar</a>
-        <div id="divLogin" class="fa fa-level-down" style="display:none">
-            <h1>ESCONDIO</h1>
-        </div>
-    </c:when>
-    <c:otherwise>
-        <h4>
-            Bienvenido <c:out value="${sessionScope.usuario.nombre}" />
-        </h4>
-    </c:otherwise>
-</c:choose>
+<h1>ESTA PAGINA SE SUPONE QUE TENDRA COLORES Y COSAS BONITAS</h1>
+<h1 style="color:red">
+    <c:if test="${requestScope.error!=null}">
+        AAAAAAAAAAAAAAAAAAAAAAAAXDDDDDDDDDDDDDDDDd
+    </c:if>
+</h1>
 
 <p>
 
