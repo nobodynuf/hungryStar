@@ -14,7 +14,7 @@
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="#">HungryStar</a></li>
+                        <li><a href=".">HungryStar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-center">
                         <li><a href="#"><span class="glyphicon glyphicon-backward"/></a></li>
@@ -32,5 +32,6 @@
 
     </div>
 </nav>
-
+</body>
+</html>
 

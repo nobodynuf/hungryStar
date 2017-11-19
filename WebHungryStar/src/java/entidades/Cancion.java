@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -36,6 +37,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cancion.findByIdAlbum", query = "SELECT c FROM Cancion c WHERE c.idAlbum = :idAlbum"),
     @NamedQuery(name = "Cancion.findByIdArtista", query = "SELECT c FROM Cancion c WHERE c.idArtista = :idArtista")})
 public class Cancion implements Serializable {
+
+    @Lob
+    @Column(name = "dato")
+    private byte[] dato;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -123,6 +128,14 @@ public class Cancion implements Serializable {
     @Override
     public String toString() {
         return "entidades.Cancion[ id=" + id + " ]";
+    }
+
+    public byte[] getDato() {
+        return dato;
+    }
+
+    public void setDato(byte[] dato) {
+        this.dato = dato;
     }
 
 }
