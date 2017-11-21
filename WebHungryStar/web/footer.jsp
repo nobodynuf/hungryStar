@@ -5,7 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+</div>
+</div>
+</div>
 <nav class="navbar navbar-inversed navbar-fixed-bottom">
 
     <div id="footer" class="text-xs-center">    
@@ -35,10 +37,10 @@
                                 <li>
                                     <a href="#"><span style="vertical-align: middle" />
                                         Bienvenido <c:out value="${sessionScope.usuario.nombre}" /></a>
-                                    
+
                                 </li>
                                 <li>
-                                    <a href="#" data-toggle="modal" data-target="#idLogout"><span class="glyphicon glyphicon-log-in" style="vertical-align: middle"/>&nbsp;Salir</a>
+                                    <a href="#" data-toggle="modal" data-target="#idLogout"><span class="glyphicon glyphicon-log-in" style="vertical-align: middle"/>&nbsp;Salir&nbsp;&nbsp;</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>

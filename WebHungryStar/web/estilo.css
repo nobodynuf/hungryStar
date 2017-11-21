@@ -1,0 +1,34 @@
+/*
+Here comes the license
+
+Oh snap, waddup
+
+(CC BY-SA 4.0) Jorge Manriquez
+*/
+/* 
+    Created on : 16-nov-2017, 20:18:19
+    Author     : nobodynuf
+*/
+
+@media (min-width: 768px) {
+    .navbar-nav.navbar-center {
+        position: absolute;
+        left: 50%;
+        transform: translatex(-50%);
+    }
+
+
+
+    /* for validator */
+    a:link {
+        text-decoration:none;
+    }
+
+    .green, .green a {
+        color: #339900;
+    }
+    .affix {
+        top: 20px;
+        z-index: 9999 !important;
+    }
+}

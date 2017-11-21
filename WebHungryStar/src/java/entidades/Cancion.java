@@ -41,6 +41,10 @@ public class Cancion implements Serializable {
     @Lob
     @Column(name = "dato")
     private byte[] dato;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_usuario")
+    private int idUsuario;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -136,6 +140,14 @@ public class Cancion implements Serializable {
 
     public void setDato(byte[] dato) {
         this.dato = dato;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
 }
