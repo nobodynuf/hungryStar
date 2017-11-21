@@ -24,11 +24,14 @@
     <body>
 
         <!-- la cosa de arriba -->
-        <div class="container-fluid" style="background-color:#2196F3;color:#fff;height:200px;">
-            <h1>Bootstrap Affix Example</h1>
-            <h3>Fixed (sticky) vertical sidenav on scroll</h3>
-            <p>Scroll this page to see how the left navigation menu behaves with data-spy="affix".</p>
-            <p><strong>The left menu sticks to the page when you have scrolled a specified amount of pixels.</strong></p>
+        <div class="container-fluid" style="background-color:#2196F3;color:#fff;height:100px;">
+            
+            <h3 style="text-align: center">Recuerda que hungryArtist no es responsable por el contenido
+            que subas a la pagina, y la responsabilidad es exclusiva del usuario.
+            </h3>
+            <h6 style="text-align: right">(c) Team HungryArtist</h6>
+
+            
         </div>
         <br>
 

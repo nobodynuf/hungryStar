@@ -7,6 +7,7 @@
  */
 package controladores;
 
+import com.sun.xml.registry.uddi.bindings_v2_2.GetRegisteredInfo;
 import entidades.Album;
 import entidades.Artista;
 import entidades.Cancion;
@@ -48,6 +49,7 @@ public class AccionArtista extends HttpServlet {
                     List<Artista> listaArtistas = (List<Artista>)req.getSession().getAttribute("listaArtistas");
                     List<Cancion> listaCancion = (List<Cancion>)req.getSession().getAttribute("listaCanciones");
                     // TODO logica accion artista
+                    req.getRequestDispatcher("artistas.jsp").forward(req, resp);
                     
                     break;
 
