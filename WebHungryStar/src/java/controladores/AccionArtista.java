@@ -12,6 +12,7 @@ import entidades.Album;
 import entidades.Artista;
 import entidades.Cancion;
 import entidades.Usuario;
+import facades.AlbumFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import pojo.Registro;
 import facades.ArtistaFacade;
 import facades.CancionFacade;
+import facades.LogFacade;
+import facades.UsuarioFacade;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,7 +38,19 @@ import javax.ejb.EJB;
 public class AccionArtista extends HttpServlet {
 
     @EJB
+    UsuarioFacade uFacade;
+
+    @EJB
     ArtistaFacade aFacade;
+
+    @EJB
+    CancionFacade cFacade;
+
+    @EJB
+    AlbumFacade alFacade;
+
+    @EJB
+    LogFacade lFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -80,15 +95,23 @@ public class AccionArtista extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String nombreArtista = req.getParameter("txtNombre").trim();
-
+            Registro.LOG.log(Level.INFO, "Entrado a metodo POST de Servlet Artista");
+            String nombreArtista = req.getParameter("txtNombre");
+            Registro.LOG.log(Level.INFO, "Parametro pasado por post [Nombre: {0}]", nombreArtista);
             if (!nombreArtista.isEmpty()) {
-                Artista a = new Artista(0, nombreArtista);
+                Artista a = new Artista();
+                a.setNombre(nombreArtista);
                 aFacade.create(a);
-                Registro.LOG.info("Agregado artista a db, redireccionando");
+                Registro.LOG.info("Agregado artista a db");
+
                 
+                List<Artista> otraListaArtista = aFacade.findAll();
+                
+                req.setAttribute("listaArtistas", otraListaArtista);
+
+
                 resp.sendRedirect("./Artista?action=listar");
-                
+
             } else {
                 throw new Exception("POST PARAMETERS EMPTY");
             }

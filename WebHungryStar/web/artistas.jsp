@@ -8,7 +8,7 @@
 <%@include file="header.jsp" %>
 
 <h3>Lista Artistas</h3>
-<button type="button" class="btn btn-info floating-action-button" onclick="">Agregar Artista</button>
+<button type="button" class="btn btn-info floating-action-button" onclick="divAgregar()">Agregar Artista</button>
 
 <table class="table table-striped">
     <thead>
@@ -107,7 +107,7 @@
 
 <!-- modal agregar -->
 <div class="modal" id="agregar">
-    <form method="POST" action="./AccionArtista" id="formAgregarArtista">
+    <form method="POST" action="./Artista">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -117,7 +117,8 @@
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls">
                         <label>Nombre artista</label>
-                        <input class="form-control" type="text" id="txtNombre" placeholder="Un nombre de artista"
+                        <input class="form-control" type="text" name="txtNombre" id="txtNombre"
+                               placeholder="Un nombre de artista"
                                data-validation-required-message="Ingresa el nombre del artista" required="yes"/>
                     </div>
                 </div>
