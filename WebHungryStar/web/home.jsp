@@ -13,7 +13,7 @@
 <h1>ESTA PAGINA SE SUPONE QUE TENDRA COLORES Y COSAS BONITAS</h1>
 <h1 style="color:red">
     <c:if test="${requestScope.error!=null}">
-        AAAAAAAAAAAAAAAAAAAAAAAAXDDDDDDDDDDDDDDDDd
+        <c:out value="${requestScope.error}"></c:out>
     </c:if>
 </h1>
 

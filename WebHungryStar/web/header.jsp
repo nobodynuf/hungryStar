@@ -48,7 +48,6 @@
 
                 <!-- contenedor con columnas de tamaño 9-->
                 <div class="col-sm-9">   
-                    
                 
 
        

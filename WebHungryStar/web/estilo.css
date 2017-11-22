@@ -31,4 +31,10 @@ Oh snap, waddup
         top: 20px;
         z-index: 9999 !important;
     }
+
+    .floating-action-button {
+        position: relative;
+        top: 90%;
+        margin-left: 90%;
+    }
 }
