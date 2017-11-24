@@ -33,8 +33,9 @@ function modificarArtista(){
         var idArtista = $('#txtID').val();
         $.ajax({
             method: "GET",
-            url: "./Artista?action=modificar&",
+            url: "./Artista",
             data: {
+                action : modificar,
                 nombre: nombreArtista,
                 id: idArtista
             },
@@ -48,8 +49,8 @@ function modificarArtista(){
 function modificarArtista(id){
     $(document).ready(function(){
         divModificar();
-        var numero = $('id'+i).val();
-        var nombre = $('nombre'+i).val();
+        var numero = $('#id'+i).val();
+        var nombre = $('#nombre'+i).val();
         
         $('#txtID').val(numero);
         $('#txtNombreArtista').val(nombre);

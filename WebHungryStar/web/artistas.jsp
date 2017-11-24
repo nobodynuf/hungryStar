@@ -8,8 +8,10 @@
 <%@include file="header.jsp" %>
 
 <h3>Lista Artistas</h3>
-<button type="button" class="btn btn-info floating-action-button" onclick="">Agregar Artista</button>
-
+<button type="button" class="btn btn-info floating-action-button" onclick="divAgregar()">Agregar Artista</button>
+<h1 id="resultado" >
+    ${resultado}
+</h1>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -30,7 +32,7 @@
     <c:choose>
         <c:when test="${sessionScope.usuario !=null}">
             <c:choose>
-                <c:when test="${empty sessionScope.listaAlbunes}">
+                <c:when test="${1!=1}">
                     <tr>
                         <td colspan="4">
                             <h3>VACIA LISTA ARTISTA</h3>
@@ -44,15 +46,15 @@
                         <tr>
                             <td id="id<%= i++%>">
                                 <c:out value="${Album.id}"></c:out>
-                                </td>
-                                <td id="nombre<%= i++%>">
+                            </td>
+                            <td id="nombre<%= i++%>">
                                 <c:out value="${Album.nombre}"></c:out>
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-                                    <button type="button" onclick="modificarArtista(<%=i%>)" />
+                            </td>
+                            <td>
+                                <button type="button" />
+                            </td>
+                            <td>
+                                <button type="button" onclick="modificarArtista(<%=i%>)" />
                             </td>
                         </tr>
 
@@ -107,28 +109,32 @@
 
 <!-- modal agregar -->
 <div class="modal" id="agregar">
-    <form method="POST" action="./AccionArtista" id="formAgregarArtista">
+    <div class="modal-dialog">
+
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Agregar Artista</h4>
-            </div>
-            <div class="modal-body">
-                <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                        <label>Nombre artista</label>
-                        <input class="form-control" type="text" id="txtNombre" placeholder="Un nombre de artista"
-                               data-validation-required-message="Ingresa el nombre del artista" required="yes"/>
+            <form method="POST" action="./Artista" id="formAgregarArtista">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agregar Artista</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Nombre artista</label>
+                            <input class="form-control" type="text" name="txtNombre" id="txtNombre" placeholder="Un nombre de artista"
+                                   data-validation-required-message="Ingresa el nombre del artista" required="yes"/>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button class="btn btn-success" type="submit">VAMOS!</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-success" type="submit">VAMOS!</button>
+                </div>
+            </form>
         </div>
-    </form>
+
+    </div>
 </div>
 <!-- fin modal agregar -->
 <%@include file="footer.jsp" %>

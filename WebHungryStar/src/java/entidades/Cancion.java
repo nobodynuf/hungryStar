@@ -134,13 +134,6 @@ public class Cancion implements Serializable {
         return "entidades.Cancion[ id=" + id + " ]";
     }
 
-    public byte[] getDato() {
-        return dato;
-    }
-
-    public void setDato(byte[] dato) {
-        this.dato = dato;
-    }
 
     public int getIdUsuario() {
         return idUsuario;
@@ -148,6 +141,14 @@ public class Cancion implements Serializable {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public byte[] getDato() {
+        return dato;
+    }
+
+    public void setDato(byte[] dato) {
+        this.dato = dato;
     }
 
 }
