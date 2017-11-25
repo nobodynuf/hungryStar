@@ -38,10 +38,10 @@
             <div class="row">
                 <nav class="col-sm-3">
                     <ul id="navBar" class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
-                        <li class="active"><a href="#section1">Home</a></li>
-                        <li><a href="#section2">Albunes</a></li>
+                        <li class="active"><a href="./home.jsp">Home</a></li>
+                        <li><a href="./Album?action=listar">Albunes</a></li>
                         <li><a href="./Artista?action=listar">Artistas</a></li>
-                        <li><a href="#section4">Canciones</a></li>
+                        <li><a href="./Canciones?action=listar">Canciones</a></li>
                     </ul>
                 </nav>
 

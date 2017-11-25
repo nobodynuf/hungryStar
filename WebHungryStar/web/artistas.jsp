@@ -7,9 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp" %>
 <script>
-    $(document).ready(function(){
-        $('#navBar')children()[0].toggleClass('active');
-        $('#navBar')children()[2].toggleClass('active');
+    $(document).ready(function () {
+        $('#navBar li:nth-child(1)').toggleClass('active');
+        $('#navBar li:nth-child(3)').toggleClass('active');
     });
 </script>
 <h3>Lista Artistas</h3>
@@ -56,10 +56,12 @@
                                 <c:out value="${Artista.nombre}"></c:out>
                                 </td>
                                 <td>
-                                    <button type="button" />
-                                </td>
-                                <td>
-                                    <button type="button" onclick="modificarArtista(${Artista.id})" />
+                                    <button class="btn btn-warning" type="button"
+                                            onclick="eliminarArtista(${Artista.id})">Eliminar</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-info" type="button"
+                                        onclick="modificarArtista(${Artista.id})">Modificar</button>
                             </td>
                         </tr>
 
@@ -78,7 +80,7 @@
 <!-- Modales!! -->
 
 <!-- modal modificar -->
-<div class="modal hide fade" id="modificar" role="dialog">
+<div class="modal" id="modificar" role="dialog">
     <div class="modal-dialog">
 
         <div class="modal-content">
@@ -105,11 +107,12 @@
                                data-validation-required-message="Ingresa un nombre" required="yes"/>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-success" type="button" onclick="ajaxModificarArtista()">VAMOS!</button>
-                </div>
 
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-success" type="button" onclick="ajaxModificarArtista()">VAMOS!</button>
             </div>
         </div>
     </div>
@@ -146,4 +149,29 @@
     </div>
 </div>
 <!-- fin modal agregar -->
+
+<!-- modal eliminar -->
+<div class="modal" id="eliminar" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close">&times;</button>
+                <h4 class="modal-title">Confirmacion</h4>
+            </div>
+            <div class="modal-body">
+                <p>Esta seguro que desea eliminar a
+                    <br />
+                    <b id="aEliminar"></b>
+                    <b id="aEliminarNombre"></b>
+                    ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-warning" type="button" onclick="ajaxEliminarArtista()">Confirmo</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin modal eliminar -->
+
 <%@include file="footer.jsp" %>

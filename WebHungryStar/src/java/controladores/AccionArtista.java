@@ -7,9 +7,7 @@
  */
 package controladores;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
+
 import entidades.Album;
 import entidades.Artista;
 import entidades.Cancion;
@@ -116,9 +114,6 @@ public class AccionArtista extends HttpServlet {
                     break;
 
                 case "modificar":
-                    String action;
-                    JsonObject data = null;
-                    String datos = req.getParameter("datos");
                     String nombreArtista = req.getParameter("nombreArtista");
                     int idArtista = Integer.parseInt(req.getParameter("idArtista"));
                     
@@ -132,10 +127,18 @@ public class AccionArtista extends HttpServlet {
                         return;
 
                     } else {
-                        Registro.LOG.info("Error al procesar AJAX");
+                        Registro.LOG.warning("Error al procesar AJAX para modificar el artista");
                     }
                     break;
-
+                case "eliminar":
+                    Integer numero = Integer.parseInt(req.getParameter("idArtista"));
+                    Artista aEliminar = aFacade.find(numero);
+                    Registro.LOG.info("Encontrado artista a eliminar");
+                    
+                    aFacade.remove(aEliminar);
+                    Registro.LOG.info("Artista eliminado correctamente, redireccionando");
+                    
+                    return;
                 default:
                     throw new Exception("Error al procesar la solicitud GET");
 
@@ -145,6 +148,14 @@ public class AccionArtista extends HttpServlet {
         }
     }
 
+    /**
+     * Metodo doPost que controla el agregar <h1>Artistas</h1>
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException 
+     */
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

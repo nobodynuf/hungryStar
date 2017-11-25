@@ -7,6 +7,9 @@ function divRegistrarse() {
     $('#divLogin').toggle();
     $('#divRegistrarse').toggle();
 }
+function divEliminar() {
+    $('#eliminar').toggle();
+}
 
 function divModificar() {
     $('#modificar').toggle();
@@ -35,12 +38,12 @@ function ajaxModificarArtista() {
                 idArtista: $('input[name=txtID]').val()
             },
             contentType: 'json',
-            dataType: 'json',
-            success: function (status) {
-                alert('funciona ' + status);
-                divModificar();
-            }
+            dataType: 'json'
         });
+        divModificar();
+        setTimeout(function () {
+            location.reload(true);
+        }, 300);
 //        $.get('Artista', $.param(params), function () {
 //            alert('modificado con exito!');
 //            divModificar();
@@ -61,6 +64,41 @@ function modificarArtista(id) {
 
     });
 }
+
+function ajaxEliminarArtista() {
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'Artista',
+            data: {
+                action: 'eliminar',
+                idArtista: $('#aEliminar').html()
+            },
+            contentType: 'json',
+            dataType: 'json'
+        });
+        divEliminar();
+        setTimeout(function () {
+            location.reload(true);
+        }, 300);
+    });
+}
+
+function eliminarArtista(id) {
+    $(document).ready(function () {
+        var i = id;
+        divEliminar();
+        var numero = $('#id' + i).html();
+        var nombre = $('#nombre' + i).html();
+        numero = numero.trim();
+        nombre = nombre.trim();
+
+        $('#aEliminar').html(numero);
+        $('#aEliminarNombre').html(nombre);
+
+    });
+}
+
 
 function reproducir() {
 
