@@ -1,0 +1,90 @@
+/*
+Here comes the license
+
+Oh snap, waddup
+
+(CC BY-SA 4.0) Jorge Manriquez
+*/
+/* 
+    Created on : 16-nov-2017, 20:18:19
+    Author     : nobodynuf
+*/
+
+@media (min-width: 768px) {
+    .navbar-nav.navbar-center {
+        position: absolute;
+        left: 50%;
+        transform: translatex(-50%);
+    }
+
+
+
+    /* for validator */
+    a:link {
+        text-decoration:none;
+    }
+
+    .green, .green a {
+        color: #339900;
+    }
+    .affix {
+        top: 20px;
+        z-index: 9999 !important;
+    }
+
+    .floating-action-button {
+        position: relative;
+        top: 90%;
+        margin-left: 90%;
+    }
+    @-webkit-keyframes dreem {
+        0% {
+            color:#F00
+        }
+        17% {
+            color:#FF0
+        }
+        33% {
+            color:#0F0
+        }
+        50% {
+            color:#0FF
+        }
+        67% {
+            color:#00F
+        }
+        84% {
+            color:#F0F
+        }
+        100% {
+            color:#F00
+        }
+    }
+    @keyframes dreem {
+        0% {
+            color:#F00
+        }
+        17% {
+            color:#FF0
+        }
+        33% {
+            color:#0F0
+        }
+        50% {
+            color:#0FF
+        }
+        67% {
+            color:#00F
+        }
+        84% {
+            color:#F0F
+        }
+        100% {
+            color:#F00
+        }
+    }
+    .save-button {
+        -webkit-animation:dreem 5s linear 0s infinite;
+        animation:dreem 5s linear 0s infinite
+    }
+}
