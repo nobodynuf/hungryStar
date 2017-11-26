@@ -7,7 +7,6 @@
  */
 package controladores;
 
-
 import entidades.Album;
 import entidades.Artista;
 import entidades.Cancion;
@@ -56,7 +55,7 @@ public class AccionArtista extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-
+            resp.setContentType("text/xml;charset=UTF-8");
             switch (req.getParameter("action")) {
                 case "listar":
                     if (req.getSession().getAttribute("usuario") == null) {
@@ -116,9 +115,7 @@ public class AccionArtista extends HttpServlet {
                 case "modificar":
                     String nombreArtista = req.getParameter("nombreArtista");
                     int idArtista = Integer.parseInt(req.getParameter("idArtista"));
-                    
-                    
-                    
+
                     if (!nombreArtista.isEmpty()) {
                         Artista a = aFacade.find(idArtista);
                         a.setNombre(nombreArtista);
@@ -134,10 +131,10 @@ public class AccionArtista extends HttpServlet {
                     Integer numero = Integer.parseInt(req.getParameter("idArtista"));
                     Artista aEliminar = aFacade.find(numero);
                     Registro.LOG.info("Encontrado artista a eliminar");
-                    
+
                     aFacade.remove(aEliminar);
                     Registro.LOG.info("Artista eliminado correctamente, redireccionando");
-                    
+
                     return;
                 default:
                     throw new Exception("Error al procesar la solicitud GET");
@@ -150,12 +147,12 @@ public class AccionArtista extends HttpServlet {
 
     /**
      * Metodo doPost que controla el agregar <h1>Artistas</h1>
+     *
      * @param req
      * @param resp
      * @throws ServletException
-     * @throws IOException 
+     * @throws IOException
      */
-    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

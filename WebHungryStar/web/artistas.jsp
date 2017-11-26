@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="header.jsp" %>
+<%@include file="rsc/header.jsp" %>
 <script>
     $(document).ready(function () {
         $('#navBar li:nth-child(1)').toggleClass('active');
@@ -174,4 +174,4 @@
 </div>
 <!-- fin modal eliminar -->
 
-<%@include file="footer.jsp" %>
+<%@include file="rsc/footer.jsp" %>

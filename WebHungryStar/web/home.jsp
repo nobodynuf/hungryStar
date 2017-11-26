@@ -5,7 +5,7 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="header.jsp" %>
+<%@include file="rsc/header.jsp" %>
 <script>
     cambiarTitulo("Inicio");
 </script>
@@ -42,6 +42,6 @@
 </p>
 
 
-<%@include file="footer.jsp" %>
+<%@include file="rsc/footer.jsp" %>
 
 
