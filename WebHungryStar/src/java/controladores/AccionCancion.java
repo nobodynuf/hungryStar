@@ -29,11 +29,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pojo.Registro;
 
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
+
+
 /**
  *
  * @author nobodynuf
  */
 @WebServlet(name = "AccionCancion", urlPatterns = {"/Cancion"})
+
+@MultipartConfig(maxFileSize = 1024*1024*13)    
+
 public class AccionCancion extends HttpServlet {
 
     @EJB
@@ -64,6 +71,17 @@ public class AccionCancion extends HttpServlet {
         resp.setContentType("text/xml;charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
 
+        try {
+            String txtNombre = req.getParameter("txtNombre");
+            int idArtista = Integer.parseInt(req.getParameter("listaArtistas"));
+            int idAlbum = Integer.parseInt(req.getParameter("listaAlbum"));
+            Part filePart = req.getPart("fileArchivo");
+            
+            
+        } catch (Exception e) {
+        }
+        
+        
     }
 
     /**

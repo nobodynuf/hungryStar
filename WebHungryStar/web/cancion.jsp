@@ -33,7 +33,7 @@
                 Album
             </td>
             <td>
-                Descargar
+                Reproducir
             </td>
             <td>
                 &nbsp;
@@ -81,7 +81,9 @@
 
                             </td>
 
-                            </span>
+                            <td>
+                                <a href="#" onclick="reproducir(${Cancion.id})">REPRODUCIR</a>
+                            </td>
                             <td>
                                 <button class="btn btn-warning" type="button"
                                         onclick="eliminarCancion(${Cancion.id})">Eliminar</button>
@@ -111,7 +113,7 @@
     <div class="modal-dialog">
 
         <div class="modal-content">
-            <form method="POST" action="./Cancion" id="formAgregarCancion">
+            <form method="POST" action="./Cancion" id="formAgregarCancion" enctype="multipart/form-data">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Agregar Cancion</h4>
@@ -150,10 +152,22 @@
                                             -- Seleccione --
                                         </option>
                                         <c:forEach items="${sessionScope.listaAlbunes}" var="Album">
-                                            <c:if test=""
+                                            <c:forEach items="${sessionScope.listaArtistas}" var="Artista">
+                                                <c:if test="${Artista.id==Album.idArtista}">
+                                                    <c:out value="${Album.nombre}"></c:out>
+                                                </c:if>
+                                            </c:forEach>
                                         </c:forEach>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label>Archivo</label>
+                                <input class="form-control" type="file" name="fileArchivo" id="fileArchivo"
+                                       data-validation-required-message="Selecciona un archivo" required="yes"/>
                             </div>
                         </div>
                     </div>

@@ -197,6 +197,11 @@ function reproducir() {
         $(this).find('span').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
     });
 }
+
+function reproducir(idCancion){
+    
+}
+
 function atras() {
     console.log("DX");
 }
