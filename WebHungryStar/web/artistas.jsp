@@ -32,7 +32,7 @@
     <c:choose>
         <c:when test="${sessionScope.usuario !=null}">
             <c:choose>
-                <c:when test="${1!=1}">
+                <c:when test="${empty sessionScope.listaArtistas}">
                     <tr>
                         <td colspan="4">
                             <h3>VACIA LISTA ARTISTA</h3>
@@ -41,20 +41,20 @@
                 </c:when>
                 <c:otherwise>
                     <% int i = 0;%>
-                    <c:forEach items="${sessionScope.listaAlbunes}" var="Album" >
+                    <c:forEach items="${sessionScope.listaArtistas}" var="Artista" >
 
                         <tr>
-                            <td id="id<%= i++%>">
-                                <c:out value="${Album.id}"></c:out>
-                            </td>
-                            <td id="nombre<%= i++%>">
-                                <c:out value="${Album.nombre}"></c:out>
-                            </td>
-                            <td>
-                                <button type="button" />
-                            </td>
-                            <td>
-                                <button type="button" onclick="modificarArtista(<%=i%>)" />
+                            <td id="id${Artista.id}">
+                                <c:out value="${Artista.id}"></c:out>
+                                </td>
+                                <td id="nombre${Artista.id}">
+                                <c:out value="${Artista.nombre}"></c:out>
+                                </td>
+                                <td>
+                                    <button type="button" />
+                                </td>
+                                <td>
+                                    <button type="button" onclick="modificarArtista(${Artista.id})" />
                             </td>
                         </tr>
 
@@ -73,11 +73,13 @@
 <!-- Modales!! -->
 
 <!-- modal modificar -->
-<div class="modal" id="modificar">
+<div class="modal hide fade" id="modificar" role="dialog">
     <div class="modal-dialog">
+
         <div class="modal-content">
 
             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Modificar artista</h4>
             </div>
             <div class="modal-body">
@@ -85,20 +87,20 @@
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls">
                         <label>ID artista</label>
-                        <input class="form-control" type="text" id="txtID" value=""
+                        <input class="form-control" type="text" id="txtID" name="txtID" value=""
                                readonly="yes"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls">
                         <label>Nombre artista</label>
-                        <input class="form-control" type="text" id="txtNombreArtista" placeholder="Nombre artista"
+                        <input class="form-control" type="text" name="txtNombreArtista" placeholder="Nombre artista"
                                data-validation-required-message="Ingresa un nombre" required="yes"/>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-success" type="button" onclick="modificarArtista()">VAMOS!</button>
+                    <button class="btn btn-success" type="button" onclick="ajaxModificarArtista()">VAMOS!</button>
                 </div>
 
             </div>
@@ -108,7 +110,7 @@
 <!-- fin modal modificar -->
 
 <!-- modal agregar -->
-<div class="modal" id="agregar">
+<div class="modal" id="agregar" role="dialog">
     <div class="modal-dialog">
 
         <div class="modal-content">

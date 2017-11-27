@@ -1,14 +1,3 @@
-/* 
- * Here comes the license
- * 
- * Oh snap, waddup
- * 
- * (CC BY-SA 4.0) Jorge Manriquez
- */
-/**
- * modales! login!
- * @returns {undefined}
- */
 function divLogin() {
     $('#divLogin').toggle();
     $('#divRegistrarse').toggle();
@@ -19,47 +8,62 @@ function divRegistrarse() {
     $('#divRegistrarse').toggle();
 }
 
-function divModificar(){
+function divModificar() {
     $('#modificar').toggle();
-    
+
 }
-function divAgregar(){
+function divAgregar() {
     $('#agregar').toggle();
 }
 
-function modificarArtista(){
-    $(document).ready(function(){
-        var nombreArtista = $('#txtNombreArtista').val();
-        var idArtista = $('#txtID').val();
+function ajaxModificarArtista() {
+    $(document).ready(function () {
+//        var params = {
+//            action: 'modificar',
+//            nombreArtista: $('input[name=txtNombreArtista]').val(),
+//            idArtista: $('input[name=txtID]').val()
+//
+//        };
+//        var nombreArtista = $('input[name=txtNombreArtista]').val();
+//        var idArtista = $('input[name=txtID]').val();
         $.ajax({
-            method: "GET",
-            url: "./Artista",
+            type: 'GET',
+            url: 'Artista',
             data: {
-                action : modificar,
-                nombre: nombreArtista,
-                id: idArtista
+                action: 'modificar',
+                nombreArtista: $('input[name=txtNombreArtista]').val(),
+                idArtista: $('input[name=txtID]').val()
             },
-            success: function(status){
-                alert('funciona '+status);
+            contentType: 'json',
+            dataType: 'json',
+            success: function (status) {
+                alert('funciona ' + status);
                 divModificar();
             }
         });
+//        $.get('Artista', $.param(params), function () {
+//            alert('modificado con exito!');
+//            divModificar();
+//        });
     });
 }
-function modificarArtista(id){
-    $(document).ready(function(){
+function modificarArtista(id) {
+    $(document).ready(function () {
+        var i = id;
         divModificar();
-        var numero = $('#id'+i).val();
-        var nombre = $('#nombre'+i).val();
-        
-        $('#txtID').val(numero);
-        $('#txtNombreArtista').val(nombre);
-        
+        var numero = $('#id' + i).html();
+        var nombre = $('#nombre' + i).html();
+        numero = numero.trim();
+        nombre = nombre.trim();
+
+        $('input[name=txtID]').val(numero);
+        $('input[name=txtNombreArtista]').val(nombre);
+
     });
 }
 
 function reproducir() {
-    
+
     $('#boton-reproducir').click(function () {
         $(this).find('span').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
     });

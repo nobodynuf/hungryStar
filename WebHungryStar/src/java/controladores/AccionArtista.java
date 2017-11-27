@@ -7,7 +7,9 @@
  */
 package controladores;
 
-import com.sun.xml.registry.uddi.bindings_v2_2.GetRegisteredInfo;
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import entidades.Album;
 import entidades.Artista;
 import entidades.Cancion;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.ejb.EJB;
+import javax.json.JsonObject;
 
 /**
  *
@@ -55,6 +58,7 @@ public class AccionArtista extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+
             switch (req.getParameter("action")) {
                 case "listar":
                     if (req.getSession().getAttribute("usuario") == null) {
@@ -73,7 +77,7 @@ public class AccionArtista extends HttpServlet {
                     List<Album> listaAlbum = new ArrayList<>();
 
                     for (Cancion cancion : laOtraLista) {
-                        if (cancion.getIdUsuario() == ((int) ((Usuario)req.getSession().getAttribute("usuario")).getId())) {
+                        if (cancion.getIdUsuario() == ((int) ((Usuario) req.getSession().getAttribute("usuario")).getId())) {
                             lista.add(cancion);
                         }
                     }
@@ -99,9 +103,9 @@ public class AccionArtista extends HttpServlet {
 
                     Registro.LOG.info("Llenada lista objeto sesion Albunes");
 
-                    req.setAttribute("listaArtistas", listaArtista);
-                    req.setAttribute("listaCanciones", lista);
-                    req.setAttribute("listaAlbunes", laOtraListaAlbum);
+                    req.getSession().setAttribute("listaArtistas", otraListaArtista);
+                    req.getSession().setAttribute("listaCanciones", lista);
+                    req.getSession().setAttribute("listaAlbunes", laOtraListaAlbum);
 
 //                    Usuario user = (Usuario) req.getSession().getAttribute("usuario");
 //                    List<Album> listaAlbunes = (List<Album>)req.getSession().getAttribute("listaAlbunes");
@@ -112,14 +116,19 @@ public class AccionArtista extends HttpServlet {
                     break;
 
                 case "modificar":
-                    if (req.getParameter("nombre") != null) {
-                        String nombre = req.getParameter("nombre");
-                        Integer id = Integer.valueOf(req.getParameter("id"));
-                        Artista a = aFacade.find(id);
-                        a.setNombre(nombre);
+                    String action;
+                    JsonObject data = null;
+                    String datos = req.getParameter("datos");
+                    String nombreArtista = req.getParameter("nombreArtista");
+                    int idArtista = Integer.parseInt(req.getParameter("idArtista"));
+                    
+                    
+                    
+                    if (!nombreArtista.isEmpty()) {
+                        Artista a = aFacade.find(idArtista);
+                        a.setNombre(nombreArtista);
                         aFacade.edit(a);
                         Registro.LOG.info("Modificado correcto de artista, redireccionando");
-                        req.getRequestDispatcher("artistas.jsp");
                         return;
 
                     } else {
