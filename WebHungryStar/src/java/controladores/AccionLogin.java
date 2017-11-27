@@ -106,9 +106,9 @@ public class AccionLogin extends HttpServlet {
 
                     Registro.LOG.info("Llenada lista objeto sesion Albunes");
                     
-                    req.setAttribute("listaArtistas", listaArtista);
-                    req.setAttribute("listaCanciones", lista);
-                    req.setAttribute("listaAlbunes", listaAlbum);
+                    req.getSession().setAttribute("listaArtistas", listaArtista);
+                    req.getSession().setAttribute("listaCanciones", lista);
+                    req.getSession().setAttribute("listaAlbunes", listaAlbum);
                     
                     Registro.LOG.info("Guardada la sesion, redireccionando");
                     req.getRequestDispatcher("home.jsp").forward(req, resp);

@@ -9,6 +9,8 @@
 package facades;
 
 import entidades.Album;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,5 +33,10 @@ public class AlbumFacade extends AbstractFacade<Album> {
     public AlbumFacade() {
         super(Album.class);
     }
+
+    public List<Album> businessMethod() {
+        return super.findAll();
+    }
+    
 
 }
