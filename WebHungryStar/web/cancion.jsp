@@ -172,3 +172,6 @@
 
 
 <%@include file="rsc/footer.jsp" %>
+=======
+</script>
+>>>>>>> origin/master
