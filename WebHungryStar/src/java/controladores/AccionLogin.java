@@ -33,6 +33,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pojo.Encriptador;
 import pojo.Registro;
+import pojo.ListaCanciones;
+import pojo.ListaCanciones.CancionSimple;
 
 /**
  *
@@ -74,19 +76,21 @@ public class AccionLogin extends HttpServlet {
                     List<Artista> otraListaArtista = aFacade.findAll();
 
                     List<Cancion> laOtraLista = cFacade.findAll();
-                    List<Cancion> lista = new ArrayList<>();
+//                    List<Cancion> lista = new ArrayList<>();
+                    List<ListaCanciones.CancionSimple> lista = new ArrayList<>();
+
 
                     List<Album> laOtraListaAlbum = alFacade.findAll();
                     List<Album> listaAlbum = new ArrayList<>();
 
-                    for (Cancion cancion : laOtraLista) {
-                        if (cancion.getIdUsuario() == ((int) usuario.getId())) {
+                    for (ListaCanciones.CancionSimple cancion : lista) {
+                        if (cancion.getIdUsuario() == ((int) ((Usuario)req.getAttribute("usuario")).getId())) {
                             lista.add(cancion);
                         }
                     }
                     Registro.LOG.info("Llenada lista objeto sesion Cancion");
 
-                    for (Cancion cancion : lista) {
+                    for (ListaCanciones.CancionSimple cancion : lista) {
                         for (Artista artista : otraListaArtista) {
                             if (((int) artista.getId()) == ((int) cancion.getIdArtista())) {
                                 listaArtista.add(artista);
@@ -96,8 +100,8 @@ public class AccionLogin extends HttpServlet {
                     Registro.LOG.info("Llenada lista objeto sesion Artista");
 
                     for (Album album : laOtraListaAlbum) {
-                        for (Cancion cancion : lista) {
-                            if (((int) album.getId()) == ((int)cancion.getIdAlbum())) {
+                        for (ListaCanciones.CancionSimple cancion : lista) {
+                            if (((int) album.getId()) == ((int) cancion.getIdAlbum())) {
                                 listaAlbum.add(album);
                                 break;
                             }
@@ -105,11 +109,11 @@ public class AccionLogin extends HttpServlet {
                     }
 
                     Registro.LOG.info("Llenada lista objeto sesion Albunes");
-                    
+
                     req.getSession().setAttribute("listaArtistas", listaArtista);
                     req.getSession().setAttribute("listaCanciones", lista);
                     req.getSession().setAttribute("listaAlbunes", listaAlbum);
-                    
+
                     Registro.LOG.info("Guardada la sesion, redireccionando");
                     req.getRequestDispatcher("home.jsp").forward(req, resp);
                     return;

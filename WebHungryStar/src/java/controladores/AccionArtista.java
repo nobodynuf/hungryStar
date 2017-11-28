@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.json.JsonObject;
+import pojo.ListaCanciones;
 
 /**
  *
@@ -63,24 +64,28 @@ public class AccionArtista extends HttpServlet {
                         return;
                     }
 
-                    // se actualizan objetos en la sesion para agilizar su acceso luego
+                    // se crean objetos en la sesion para agilizar su acceso luego
                     List<Artista> listaArtista = new ArrayList<>();
                     List<Artista> otraListaArtista = aFacade.findAll();
-
+                    
                     List<Cancion> laOtraLista = cFacade.findAll();
-                    List<Cancion> lista = new ArrayList<>();
-
+                    // usando ListaCanciones para convertir las canciones en algo simple
+                    ListaCanciones listaCancionSimple = new ListaCanciones();
+                    List<ListaCanciones.CancionSimple> listaAMostrar = listaCancionSimple.listaCancionSimple(laOtraLista);
+                    
                     List<Album> laOtraListaAlbum = alFacade.findAll();
                     List<Album> listaAlbum = new ArrayList<>();
-
-                    for (Cancion cancion : laOtraLista) {
-                        if (cancion.getIdUsuario() == ((int) ((Usuario) req.getSession().getAttribute("usuario")).getId())) {
-                            lista.add(cancion);
+                    
+                    for (ListaCanciones.CancionSimple cancion : listaAMostrar) {
+                        if (cancion.getIdUsuario() == ((int) ((Usuario) req.getAttribute("usuario")).getId())) {
+                            
+                            listaAMostrar.add(cancion);
                         }
                     }
                     Registro.LOG.info("Llenada lista objeto sesion Cancion");
-
-                    for (Cancion cancion : lista) {
+                    
+                    // buscamos las canciones que esten enlazadas a un artista
+                    for (ListaCanciones.CancionSimple cancion : listaAMostrar) {
                         for (Artista artista : otraListaArtista) {
                             if (((int) artista.getId()) == ((int) cancion.getIdArtista())) {
                                 listaArtista.add(artista);
@@ -88,26 +93,21 @@ public class AccionArtista extends HttpServlet {
                         }
                     }
                     Registro.LOG.info("Llenada lista objeto sesion Artista");
-
+                    
                     for (Album album : laOtraListaAlbum) {
-                        for (Cancion cancion : lista) {
+                        for (ListaCanciones.CancionSimple cancion : listaAMostrar) {
                             if (((int) album.getId()) == ((int) cancion.getIdAlbum())) {
                                 listaAlbum.add(album);
                                 break;
                             }
                         }
                     }
-
+                    
                     Registro.LOG.info("Llenada lista objeto sesion Albunes");
-
+                    
                     req.getSession().setAttribute("listaArtistas", otraListaArtista);
-                    req.getSession().setAttribute("listaCanciones", lista);
+                    req.getSession().setAttribute("listaCanciones", listaAMostrar);
                     req.getSession().setAttribute("listaAlbunes", laOtraListaAlbum);
-
-//                    Usuario user = (Usuario) req.getSession().getAttribute("usuario");
-//                    List<Album> listaAlbunes = (List<Album>)req.getSession().getAttribute("listaAlbunes");
-//                    List<Artista> listaArtistas = (List<Artista>)req.getSession().getAttribute("listaArtistas");
-//                    List<Cancion> listaCancion = (List<Cancion>)req.getSession().getAttribute("listaCanciones");
                     Registro.LOG.info("Redireccionando a lista artista");
                     req.getRequestDispatcher("artistas.jsp").forward(req, resp);
                     break;

@@ -10,6 +10,8 @@
     $(document).ready(function () {
         $('#navBar li:nth-child(1)').toggleClass('active');
         $('#navBar li:nth-child(4)').toggleClass('active');
+
+
     });
 </script>
 <button type="button" class="btn btn-info floating-action-button" onclick="divAgregar()">Agregar Artista</button>
@@ -113,7 +115,7 @@
     <div class="modal-dialog">
 
         <div class="modal-content">
-            <form method="POST" action="./Cancion" id="formAgregarCancion" enctype="multipart/form-data">
+            <form method="post" action="/Cancion" id="formAgregarCancion" enctype="multipart/form-data">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Agregar Cancion</h4>
@@ -152,11 +154,10 @@
                                             -- Seleccione --
                                         </option>
                                         <c:forEach items="${sessionScope.listaAlbunes}" var="Album">
-                                            <c:forEach items="${sessionScope.listaArtistas}" var="Artista">
-                                                <c:if test="${Artista.id==Album.idArtista}">
-                                                    <c:out value="${Album.nombre}"></c:out>
-                                                </c:if>
-                                            </c:forEach>
+                                            <option value="${Album.id}">
+                                                <c:out value="${Album.nombre}"></c:out>
+
+                                                </option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -186,6 +187,4 @@
 
 
 <%@include file="rsc/footer.jsp" %>
-=======
-</script>
->>>>>>> origin/master
+
