@@ -141,31 +141,34 @@ public class AccionCancion extends HttpServlet {
                     List<Cancion> laOtraLista = cFacade.findAll();
                     // usando ListaCanciones para convertir las canciones en algo simple
                     ListaCanciones listaCancionSimple = new ListaCanciones();
-                    List<CancionSimple> listaAMostrar = listaCancionSimple.listaCancionSimple(laOtraLista);
-                    
+                    List<CancionSimple> listaConvertida = listaCancionSimple.listaCancionSimple(laOtraLista);
+                    List<CancionSimple> listaAMostrar = new ArrayList<CancionSimple>();
+                     
                     List<Album> laOtraListaAlbum = alFacade.findAll();
                     List<Album> listaAlbum = new ArrayList<>();
                     
-                    for (CancionSimple cancion : listaAMostrar) {
+                    for (CancionSimple cancion : listaConvertida) {
                         if (cancion.getIdUsuario() == ((int) ((Usuario) req.getAttribute("usuario")).getId())) {
                             
                             listaAMostrar.add(cancion);
                         }
                     }
-                    Registro.LOG.info("Llenada lista objeto sesion Cancion");
+                    Registro.LOG.log(Level.INFO, "Llenada lista objeto sesion Cancion: {0}", listaAMostrar.size());
                     
                     // buscamos las canciones que esten enlazadas a un artista
-                    for (CancionSimple cancion : listaAMostrar) {
+                    
+                    //SE CAE
+                    for (CancionSimple cancion : listaConvertida) {
                         for (Artista artista : otraListaArtista) {
                             if (((int) artista.getId()) == ((int) cancion.getIdArtista())) {
                                 listaArtista.add(artista);
                             }
                         }
                     }
-                    Registro.LOG.info("Llenada lista objeto sesion Artista");
+                    Registro.LOG.info("Llenada lista objeto sesion Artista: "+listaArtista.size());
                     
                     for (Album album : laOtraListaAlbum) {
-                        for (CancionSimple cancion : listaAMostrar) {
+                        for (CancionSimple cancion : listaConvertida) {
                             if (((int) album.getId()) == ((int) cancion.getIdAlbum())) {
                                 listaAlbum.add(album);
                                 break;
@@ -173,7 +176,7 @@ public class AccionCancion extends HttpServlet {
                         }
                     }
                     
-                    Registro.LOG.info("Llenada lista objeto sesion Albunes");
+                    Registro.LOG.info("Llenada lista objeto sesion Albunes: "+listaAlbum.size());
                     
                     req.getSession().setAttribute("listaArtistas", otraListaArtista);
                     req.getSession().setAttribute("listaCanciones", listaAMostrar);
