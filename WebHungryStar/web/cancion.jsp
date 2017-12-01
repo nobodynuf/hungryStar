@@ -12,12 +12,18 @@
     $(document).ready(function () {
         $('#navBar li:nth-child(1)').toggleClass('active');
         $('#navBar li:nth-child(4)').toggleClass('active');
-
+        cambiarTitulo("Canciones");
 
     });
 </script>
+
 <h3>Lista Canciones</h3>
-<button type="button" class="btn btn-info floating-action-button" onclick="divAgregar()">Agregar Cancion</button>
+<button type="button" class="btn btn-info floating-action-button" onclick="location.href = '/doSession?session=todas&forward=Cancion'">
+    Presiona aqui si la lista no se actualiza
+</button>
+<button type="button" class="btn btn-info " onclick="divAgregar()">Agregar Cancion</button>
+
+
 <h1 id="resultado" >
     ${resultado}
 </h1>
@@ -197,6 +203,84 @@
 </div>
 <!-- fin modal agregar -->    
 
+<!-- modal modificar -->
+<div class="modal" id="modificar" role="dialog">
+    <div class="modal-dialog">
 
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Modificar Cancion</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        <label>ID cancion</label>
+                        <input class="form-control" type="text" id="txtID" name="txtID" value=""
+                               readonly="yes"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        <label>Nombre Cancion</label>
+                        <input class="form-control" type="text" name="txtNombreCancion" placeholder="Nombre Cancion"
+                               data-validation-required-message="Ingresa un nombre" required="yes"/>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        <label>Artista</label>
+                        <input class="form-control" type="text" name="txtArtista" id="txtArtista" readonly="yes"
+                               />
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        <label>Album</label>
+                        <input  class="form-control" type="text" name="txtAlbum" id="txtAlbum" readonly="yes"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-success" type="button" onclick="ajaxModificarCancion()">VAMOS!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- fin modal modificar -->
+
+<!-- modal eliminar -->
+<div class="modal" id="eliminar" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close">&times;</button>
+                <h4 class="modal-title">Confirmacion</h4>
+            </div>
+            <div class="modal-body">
+                <p>Esta seguro que desea eliminar a la cancion
+                    <br />
+                    <b id="aEliminar"></b>
+                    <b id="aEliminarNombre"></b>
+                    ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-warning" type="button" onclick="ajaxEliminarCancion()">Confirmo</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin modal eliminar -->
 <%@include file="rsc/footer.jsp" %>
 

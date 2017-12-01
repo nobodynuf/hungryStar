@@ -87,6 +87,7 @@ public class AccionListados extends HttpServlet {
                 Registro.LOG.info("Llenada lista objeto sesion Albunes");
 
                 req.getSession().setAttribute("listaArtistas", otraListaArtista);
+                req.getSession().setAttribute("listaCanciones", null);
                 req.getSession().setAttribute("listaCanciones", new ArrayList<>(listaAMostrar));
                 req.getSession().setAttribute("listaAlbunes", laOtraListaAlbum);
                 

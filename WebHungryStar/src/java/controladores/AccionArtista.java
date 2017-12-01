@@ -77,7 +77,7 @@ public class AccionArtista extends HttpServlet {
                         a.setNombre(nombreArtista);
                         aFacade.edit(a);
                         Registro.LOG.info("Modificado correcto de artista, redireccionando");
-                        resp.sendRedirect("doSession?session=todas&forward=Artista");
+                        resp.sendRedirect("./doSession?session=todas&forward=Artista");
 
                     } else {
                         Registro.LOG.warning("Error al procesar AJAX para modificar el artista");

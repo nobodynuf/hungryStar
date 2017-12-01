@@ -43,7 +43,7 @@ function ajaxModificarArtista() {
         });
         divModificar();
         setTimeout(function () {
-            location.reload(true);
+            location.href = "/doSession?session=todas&forward=Artista";
         }, 300);
 //        $.get('Artista', $.param(params), function () {
 //            alert('modificado con exito!');
@@ -80,7 +80,7 @@ function ajaxEliminarArtista() {
         });
         divEliminar();
         setTimeout(function () {
-            location.reload(true);
+            location.href = "/doSession?session=todas&forward=Artista";
         }, 300);
     });
 }
@@ -132,7 +132,7 @@ function ajaxEliminarAlbum() {
         });
         divEliminar();
         setTimeout(function () {
-            location.reload(true);
+            location.href = "/doSession?session=todas&forward=Album";
         }, 300);
     });
 }
@@ -171,24 +171,83 @@ function ajaxModificarAlbum() {
         });
         divModificar();
         setTimeout(function () {
-            location.reload(true);
+            location.href = "/doSession?session=todas&forward=Album";
         }, 300);
     });
 }
 
 //canciones
 function ajaxModificarCancion() {
-
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'Cancion',
+            data: {
+                action: 'modificar',
+                nombreCancion: $('input[name=txtNombreCancion]').val(),
+                idCancion: $('input[name=txtID]').val()
+                
+            },
+            contentType: 'json',
+            dataType: 'json'
+        });
+        divModificar();
+        setTimeout(function () {
+            location.href = "/doSession?session=todas&forward=Cancion";
+        }, 300);
+    });
 }
 function modificarCancion(id) {
+    $(document).ready(function () {
+        var i = id;
+        divModificar();
+        var numero = $('#id' + i).html();
+        var nombre = $('#nombre' + i).html();
+        var artista = $('#artista' + i).html();
+        var album = $('#album' + i).html();
 
+        numero = numero.trim();
+        nombre = nombre.trim();
+        artista = artista.trim();
+        album = album.trim();
+
+        $('input[name=txtID]').val(numero);
+        $('input[name=txtNombreCancion]').val(nombre);
+        $('input[name=txtArtista]').val(artista);
+        $('input[name=txtAlbum]').val(album);
+    });
 }
 
 function ajaxEliminarCancion() {
 
-}
-function eliminarCancion() {
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'Cancion',
+            data: {
+                action: 'eliminar',
+                idCancion: $('#aEliminar').html()
+            },
+            contentType: 'json',
+            dataType: 'json'
+        });
+        divEliminar();
 
+    });
+}
+function eliminarCancion(id) {
+    $(document).ready(function () {
+        var i = id;
+        divEliminar();
+        var numero = $('#id' + i).html();
+        var nombre = $('#nombre' + i).html();
+        numero = numero.trim();
+        nombre = nombre.trim();
+
+        $('#aEliminar').html(numero);
+        $('#aEliminarNombre').html(nombre);
+
+    });
 }
 
 function artistaCambiado() {
@@ -203,13 +262,13 @@ function artistaCambiado() {
 function doReproducir() {
 
     $(document).ready(function () {
-        
+
         $('#boton-reproducir').click(function () {
             $(this).find('span').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
             var r = $('#elReproductor').get(0);
             if (!r.paused) {
                 r.pause();
-            }else{
+            } else {
                 r.play();
             }
         });
@@ -230,14 +289,14 @@ function reproducir(idCancion) {
         contentType: 'json',
         dataType: 'json',
         complete: function (data) {
-            alert(data.status);
-            $('#elReproductor').prop('src',data.responseJSON["dato"]);
+//            alert(data.status);
+            $('#elReproductor').prop('src', data.responseJSON["dato"]);
             var r = $('#elReproductor').get(0);
             doReproducir();
             $('#boton-reproducir').find('span').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
         }
     });
-    
+
 }
 
 function atras() {

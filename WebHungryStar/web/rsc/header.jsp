@@ -17,7 +17,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <script type="text/javascript" src="../rsc/funciones.js"></script>
-        <link rel="stylesheet" href="../rsc/funciones.js"><link/>
+        <link rel="stylesheet" href="../rsc/estilo.css"><link/>
     </head>
 
     <body>

@@ -153,17 +153,27 @@ public class AccionCancion extends HttpServlet {
                         resp.setHeader("Accept", "application/json");
                         resp.setHeader("Content-type", "application/json");
                         resp.setContentType("application/json");
-                        String json = "{\"dato\": \"/archivos/"+ c.getNombre() +".mp3\" }";
-                        
-                        
+                        String json = "{\"dato\": \"/archivos/" + c.getNombre() + ".mp3\" }";
+
                         resp.getWriter().write(json);
-                            return;
+                        return;
                     } catch (Exception e) {
                     }
                     break;
                 case "modificar":
+                    Integer id = new Integer(req.getParameter("idCancion"));
+                    Cancion c = cFacade.find(id);
+                    c.setNombre(req.getParameter("nombreCancion"));
+                    cFacade.edit(c);
                     return;
+
                 case "eliminar":
+                    Integer numero = Integer.parseInt(req.getParameter("idCancion"));
+                    Cancion aEliminar = cFacade.find(numero);
+                    Registro.LOG.info("Encontrada cancion a eliminar");
+
+                    cFacade.remove(aEliminar);
+                    Registro.LOG.info("Cancion eliminada correctamente, redireccionando");
                     return;
                 default:
                     throw new Exception("Error al procesar la solicitud get");

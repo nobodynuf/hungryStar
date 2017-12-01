@@ -10,10 +10,14 @@
     $(document).ready(function () {
         $('#navBar li:nth-child(1)').toggleClass('active');
         $('#navBar li:nth-child(3)').toggleClass('active');
+        cambiarTitulo("Artistas");
     });
 </script>
 <h3>Lista Artistas</h3>
-<button type="button" class="btn btn-info floating-action-button" onclick="divAgregar()">Agregar Artista</button>
+<button type="button" class="btn btn-info floating-action-button" onclick="location.href = '/doSession?session=todas&forward=Artista'">
+    Presiona aqui si la lista no se actualiza
+</button>
+<button type="button" class="btn btn-info" onclick="divAgregar()">Agregar Artista</button>
 <h1 id="resultado" >
     ${resultado}
 </h1>

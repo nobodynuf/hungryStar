@@ -10,13 +10,14 @@
     cambiarTitulo("Inicio");
 </script>
 
-<h1>ESTA PAGINA SE SUPONE QUE TENDRA COLORES Y COSAS BONITAS</h1>
+<h1 class="save-button">Bienvenido a hungryStar</h1>
 <h1 style="color:red">
     <c:if test="${requestScope.error!=null}">
         <c:out value="${requestScope.error}"></c:out>
     </c:if>
 </h1>
 
+<!-- lorem ipsum
 <p>
 
 
@@ -40,7 +41,13 @@
 
     Donec vitae purus non arcu pellentesque dapibus. Maecenas fringilla sapien ac est elementum, ut interdum diam condimentum. Quisque tincidunt finibus augue, porttitor feugiat nunc tincidunt sit amet. Cras lacinia quam turpis, vulputate sodales metus rhoncus vitae. Morbi tristique libero ut elit hendrerit pharetra. Maecenas blandit sit amet eros quis posuere. Curabitur cursus feugiat metus. Proin scelerisque felis malesuada purus malesuada, eget porttitor nibh commodo. Integer in massa arcu. Mauris scelerisque est et enim eleifend malesuada. Quisque quis ante lacinia leo semper malesuada sit amet sit amet ex. Aenean in suscipit turpis. Sed ut nibh aliquam dolor hendrerit feugiat. 
 </p>
-
+-->
+<p style="font-size: 2vw">
+    Una pagina de musica exclusivamente para ti, puedes subir tus archivos y 
+    reproducirlos cuando quieras con nuestra exclusiva plataforma, ni siquiera
+    hay cargo por servicio ni nada, pero debes comprometerte a subir solo
+    archivos de los cuales tu tengas derechos!!
+</p>
 
 <%@include file="rsc/footer.jsp" %>
 
