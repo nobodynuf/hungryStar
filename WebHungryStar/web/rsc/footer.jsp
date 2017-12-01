@@ -20,8 +20,11 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-center">
                         <li><a href="#" onclick="atras()"><span class="glyphicon glyphicon-backward"/></a></li>
-                        <li ><a href="#" onclick="reproducir()" id="boton-reproducir"><span class="glyphicon glyphicon-play"/></a></li>
+                        <li ><a href="#" onclick="doReproducir()" id="boton-reproducir"><span class="glyphicon glyphicon-play"/></a></li>
                         <li><a href="#" onclick="adelante()"><span class="glyphicon glyphicon-forward"/></a></li>
+                        <li>
+                            <audio id="elReproductor" autoplay></audio>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <c:choose>

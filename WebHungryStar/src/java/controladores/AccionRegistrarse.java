@@ -62,7 +62,7 @@ public class AccionRegistrarse extends HttpServlet {
             user.setUsername(req.getParameter("txtUsername"));
 
             for (Usuario usuario : uFacade.findAll()) {
-                if (usuario.getUsername() == user.getPass()) {
+                if (usuario.getUsername().equals(user.getUsername())) {
                     throw new Exception("Usuario duplicado");
                 }
             }
@@ -76,7 +76,7 @@ public class AccionRegistrarse extends HttpServlet {
             Registro.LOG.info("Creada session para respectivo usuario");
             
             Registro.LOG.info("Intentando redireccionar");
-            req.getRequestDispatcher("home.jsp").forward(req, resp);
+            resp.sendRedirect("doSession?session=todas");
             
         } catch (Exception e) {
             Registro.LOG.severe(e.getMessage());

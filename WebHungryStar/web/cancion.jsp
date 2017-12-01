@@ -14,7 +14,8 @@
 
     });
 </script>
-<button type="button" class="btn btn-info floating-action-button" onclick="divAgregar()">Agregar Artista</button>
+<h3>Lista Canciones</h3>
+<button type="button" class="btn btn-info floating-action-button" onclick="divAgregar()">Agregar Cancion</button>
 <h1 id="resultado" >
     ${resultado}
 </h1>
@@ -61,10 +62,10 @@
 
                         <tr>
                             <td id="id${Cancion.id}">
-                                <c:out value="${Album.id}"></c:out>
+                                <c:out value="${Cancion.id}"></c:out>
                                 </td>
-                                <td id="nombre${Album.id}">
-                                <c:out value="${Album.nombre}"></c:out>
+                                <td id="nombre${Cancion.id}">
+                                <c:out value="${Cancion.nombre}"></c:out>
                                 </td>
                                 <td id="artista${Cancion.id}">
                                 <c:forEach items="${sessionScope.listaArtistas}" var="Artista">
@@ -123,7 +124,7 @@
                 <div class="modal-body">
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
-                            <label>Nombre Album</label>
+                            <label>Nombre Cancion</label>
                             <input class="form-control" type="text" name="txtNombre" id="txtNombre" placeholder="Un nombre de Cancion"
                                    data-validation-required-message="Ingresa el nombre de la cancion" required="yes"/>
                         </div>
@@ -132,7 +133,7 @@
                         <div class="form-group floating-label-form-group controls">
                             <label>Artista</label>
                             <div class="selectContainer">
-                                <select class="form-control"  name="listaArtistas" id="listaArtistas">
+                                <select class="form-control" onchange="artistaCambiado()" name="listaArtistas" id="listaArtistas">
                                     <option value="0">
                                         -- Seleccione --
                                     </option>
@@ -154,10 +155,19 @@
                                             -- Seleccione --
                                         </option>
                                         <c:forEach items="${sessionScope.listaAlbunes}" var="Album">
-                                            <option value="${Album.id}">
-                                                <c:out value="${Album.nombre}"></c:out>
+                                            <optgroup id="el${Album.idArtista}" 
+                                                      <c:forEach items="${sessionScope.listaArtistas}" var="Artista">
+                                                          <c:if test="${Artista.id == Album.idArtista}">
+                                                              label="${Artista.nombre}"
 
-                                                </option>
+                                                          </c:if>
+                                                      </c:forEach>
+                                                      >
+                                                <option value="${Album.id}">
+                                                    <c:out value="${Album.nombre}"></c:out>
+
+                                                    </option>
+                                                </optgroup>
                                         </c:forEach>
                                     </select>
                                 </div>

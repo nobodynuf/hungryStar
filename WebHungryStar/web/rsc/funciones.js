@@ -177,28 +177,66 @@ function ajaxModificarAlbum() {
 }
 
 //canciones
-function ajaxModificarCancion(){
-    
+function ajaxModificarCancion() {
+
 }
-function modificarCancion(id){
-    
+function modificarCancion(id) {
+
 }
 
-function ajaxEliminarCancion(){
-    
-}
-function eliminarCancion(){
-    
-}
-// pagina
-function reproducir() {
+function ajaxEliminarCancion() {
 
-    $('#boton-reproducir').click(function () {
-        $(this).find('span').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
+}
+function eliminarCancion() {
+
+}
+
+function artistaCambiado() {
+    $(document).ready(function () {
+        $('#listaAlbum').val(0);
+        $('optgroup').attr('disabled', true).css({backgroundColor: '#fcc'});
+        $('#el' + $('#listaArtistas :selected').val()).attr('disabled', false);
+        $('#el' + $('#listaArtistas :selected').val()).css({backgroundColor: '#66ff66'});
     });
 }
+// pagina
+function doReproducir() {
 
-function reproducir(idCancion){
+    $(document).ready(function () {
+        
+        $('#boton-reproducir').click(function () {
+            $(this).find('span').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
+            var r = $('#elReproductor').get(0);
+            if (!r.paused) {
+                r.pause();
+            }else{
+                r.play();
+            }
+        });
+    });
+
+}
+
+function reproducir(idCancion) {
+    var cosa;
+    $.ajax({
+        type: 'GET',
+        url: 'Cancion',
+        data: {
+            action: 'descargar',
+            idCancion: idCancion
+
+        },
+        contentType: 'json',
+        dataType: 'json',
+        complete: function (data) {
+            alert(data.status);
+            $('#elReproductor').prop('src',data.responseJSON["dato"]);
+            var r = $('#elReproductor').get(0);
+            doReproducir();
+            $('#boton-reproducir').find('span').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
+        }
+    });
     
 }
 

@@ -63,53 +63,8 @@ public class AccionAlbum extends HttpServlet {
                         req.getRequestDispatcher("home.jsp").forward(req, resp);
                         return;
                     }
-
-                    // se crean objetos en la sesion para agilizar su acceso luego
-                    List<Artista> listaArtista = new ArrayList<>();
-                    List<Artista> otraListaArtista = aFacade.findAll();
-                    
-                    List<Cancion> laOtraLista = cFacade.findAll();
-                    // usando ListaCanciones para convertir las canciones en algo simple
-                    ListaCanciones listaCancionSimple = new ListaCanciones();
-                    List<ListaCanciones.CancionSimple> listaAMostrar = listaCancionSimple.listaCancionSimple(laOtraLista);
-                    
-                    List<Album> laOtraListaAlbum = alFacade.findAll();
-                    List<Album> listaAlbum = new ArrayList<>();
-                    
-                    for (ListaCanciones.CancionSimple cancion : listaAMostrar) {
-                        if (cancion.getIdUsuario() == ((int) ((Usuario) req.getAttribute("usuario")).getId())) {
-                            
-                            listaAMostrar.add(cancion);
-                        }
-                    }
-                    Registro.LOG.info("Llenada lista objeto sesion Cancion");
-                    
-                    // buscamos las canciones que esten enlazadas a un artista
-                    for (ListaCanciones.CancionSimple cancion : listaAMostrar) {
-                        for (Artista artista : otraListaArtista) {
-                            if (((int) artista.getId()) == ((int) cancion.getIdArtista())) {
-                                listaArtista.add(artista);
-                            }
-                        }
-                    }
-                    Registro.LOG.info("Llenada lista objeto sesion Artista");
-                    
-                    for (Album album : laOtraListaAlbum) {
-                        for (ListaCanciones.CancionSimple cancion : listaAMostrar) {
-                            if (((int) album.getId()) == ((int) cancion.getIdAlbum())) {
-                                listaAlbum.add(album);
-                                break;
-                            }
-                        }
-                    }
-                    
-                    Registro.LOG.info("Llenada lista objeto sesion Albunes");
-                    
-                    req.getSession().setAttribute("listaArtistas", otraListaArtista);
-                    req.getSession().setAttribute("listaCanciones", listaAMostrar);
-                    req.getSession().setAttribute("listaAlbunes", laOtraListaAlbum);
                     Registro.LOG.info("Redireccionando a lista ALBUM");
-                    req.getRequestDispatcher("album.jsp").forward(req, resp);
+                    resp.sendRedirect("album.jsp");
                     break;
 
                 case "modificar":
@@ -121,6 +76,7 @@ public class AccionAlbum extends HttpServlet {
                     al.setNombre(nombreAlbum);
                     alFacade.edit(al);
                     Registro.LOG.info("Modificado con exito Album");
+                    resp.sendRedirect("doSession?session=todas&forward=Album");
 
                     return;
                 case "eliminar":
@@ -128,8 +84,9 @@ public class AccionAlbum extends HttpServlet {
                     Album albumEliminar = alFacade.find(idEliminar);
                     Registro.LOG.info("Encontrado Album a eliminar");
                     alFacade.remove(albumEliminar);
+                    
                     Registro.LOG.info("Albuma eliminado correctamente, redireccionando");
-                    return;
+                    resp.sendRedirect("doSession?session=todas&forward=Album");
                     
                 default:
                     break;
@@ -159,7 +116,7 @@ public class AccionAlbum extends HttpServlet {
             alFacade.create(a);
             Registro.LOG.info("Album creado correctamente, redireccionando");
             req.setAttribute("resultado", "Agregado correctamente!");
-            resp.sendRedirect("./Album?action=listar");
+            resp.sendRedirect("doSession?session=todas&forward=Album");
         } catch (Exception e) {
             resp.getWriter().println("<script>alert('error: " + e.getMessage() + "')</script>");
         }

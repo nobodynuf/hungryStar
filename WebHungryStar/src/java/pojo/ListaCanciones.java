@@ -8,10 +8,8 @@
 package pojo;
 
 import entidades.Cancion;
-import facades.CancionFacade;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
 
 /**
  *
@@ -19,11 +17,12 @@ import javax.ejb.EJB;
  */
 public class ListaCanciones {
 
-    
-
-    public List<CancionSimple> listaCancionSimple(List<Cancion> lista) {
+    public List<CancionSimple> listaCancionSimple(List<Cancion> lista, int idUsuario) {
         List<CancionSimple> retorno = new ArrayList<>();
         for (Cancion cancion : lista) {
+            if (idUsuario != cancion.getIdUsuario()) {
+                continue;
+            }
             CancionSimple cancionSimple = new CancionSimple(
                     cancion.getId(), cancion.getNombre(), cancion.getIdArtista(), cancion.getIdUsuario(), cancion.getIdAlbum()
             );
@@ -91,6 +90,7 @@ public class ListaCanciones {
         public void setIdAlbum(int idAlbum) {
             this.idAlbum = idAlbum;
         }
-        
+
     }
+
 }

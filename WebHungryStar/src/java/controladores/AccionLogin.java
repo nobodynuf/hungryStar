@@ -71,51 +71,7 @@ public class AccionLogin extends HttpServlet {
 
                     lFacade.create(new Log(Date.from(Instant.now()), usuario.getId()));
 
-                    // se crean objetos en la sesion para agilizar su acceso luego
-                    List<Artista> listaArtista = new ArrayList<>();
-                    List<Artista> otraListaArtista = aFacade.findAll();
-
-                    List<Cancion> laOtraLista = cFacade.findAll();
-//                    List<Cancion> lista = new ArrayList<>();
-                    List<ListaCanciones.CancionSimple> lista = new ArrayList<>();
-
-
-                    List<Album> laOtraListaAlbum = alFacade.findAll();
-                    List<Album> listaAlbum = new ArrayList<>();
-
-                    for (ListaCanciones.CancionSimple cancion : lista) {
-                        if (cancion.getIdUsuario() == ((int) ((Usuario)req.getAttribute("usuario")).getId())) {
-                            lista.add(cancion);
-                        }
-                    }
-                    Registro.LOG.info("Llenada lista objeto sesion Cancion");
-
-                    for (ListaCanciones.CancionSimple cancion : lista) {
-                        for (Artista artista : otraListaArtista) {
-                            if (((int) artista.getId()) == ((int) cancion.getIdArtista())) {
-                                listaArtista.add(artista);
-                            }
-                        }
-                    }
-                    Registro.LOG.info("Llenada lista objeto sesion Artista");
-
-                    for (Album album : laOtraListaAlbum) {
-                        for (ListaCanciones.CancionSimple cancion : lista) {
-                            if (((int) album.getId()) == ((int) cancion.getIdAlbum())) {
-                                listaAlbum.add(album);
-                                break;
-                            }
-                        }
-                    }
-
-                    Registro.LOG.info("Llenada lista objeto sesion Albunes");
-
-                    req.getSession().setAttribute("listaArtistas", listaArtista);
-                    req.getSession().setAttribute("listaCanciones", lista);
-                    req.getSession().setAttribute("listaAlbunes", listaAlbum);
-
-                    Registro.LOG.info("Guardada la sesion, redireccionando");
-                    req.getRequestDispatcher("home.jsp").forward(req, resp);
+                    resp.sendRedirect("doSession?session=todas");
                     return;
                 }
             }

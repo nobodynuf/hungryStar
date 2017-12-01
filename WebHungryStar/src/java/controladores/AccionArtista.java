@@ -64,52 +64,8 @@ public class AccionArtista extends HttpServlet {
                         return;
                     }
 
-                    // se crean objetos en la sesion para agilizar su acceso luego
-                    List<Artista> listaArtista = new ArrayList<>();
-                    List<Artista> otraListaArtista = aFacade.findAll();
-                    
-                    List<Cancion> laOtraLista = cFacade.findAll();
-                    // usando ListaCanciones para convertir las canciones en algo simple
-                    ListaCanciones listaCancionSimple = new ListaCanciones();
-                    List<ListaCanciones.CancionSimple> listaAMostrar = listaCancionSimple.listaCancionSimple(laOtraLista);
-                    
-                    List<Album> laOtraListaAlbum = alFacade.findAll();
-                    List<Album> listaAlbum = new ArrayList<>();
-                    
-                    for (ListaCanciones.CancionSimple cancion : listaAMostrar) {
-                        if (cancion.getIdUsuario() == ((int) ((Usuario) req.getAttribute("usuario")).getId())) {
-                            
-                            listaAMostrar.add(cancion);
-                        }
-                    }
-                    Registro.LOG.info("Llenada lista objeto sesion Cancion");
-                    
-                    // buscamos las canciones que esten enlazadas a un artista
-                    for (ListaCanciones.CancionSimple cancion : listaAMostrar) {
-                        for (Artista artista : otraListaArtista) {
-                            if (((int) artista.getId()) == ((int) cancion.getIdArtista())) {
-                                listaArtista.add(artista);
-                            }
-                        }
-                    }
-                    Registro.LOG.info("Llenada lista objeto sesion Artista");
-                    
-                    for (Album album : laOtraListaAlbum) {
-                        for (ListaCanciones.CancionSimple cancion : listaAMostrar) {
-                            if (((int) album.getId()) == ((int) cancion.getIdAlbum())) {
-                                listaAlbum.add(album);
-                                break;
-                            }
-                        }
-                    }
-                    
-                    Registro.LOG.info("Llenada lista objeto sesion Albunes");
-                    
-                    req.getSession().setAttribute("listaArtistas", otraListaArtista);
-                    req.getSession().setAttribute("listaCanciones", listaAMostrar);
-                    req.getSession().setAttribute("listaAlbunes", laOtraListaAlbum);
                     Registro.LOG.info("Redireccionando a lista artista");
-                    req.getRequestDispatcher("artistas.jsp").forward(req, resp);
+                    resp.sendRedirect("artistas.jsp");
                     break;
 
                 case "modificar":
@@ -121,7 +77,7 @@ public class AccionArtista extends HttpServlet {
                         a.setNombre(nombreArtista);
                         aFacade.edit(a);
                         Registro.LOG.info("Modificado correcto de artista, redireccionando");
-                        return;
+                        resp.sendRedirect("doSession?session=todas&forward=Artista");
 
                     } else {
                         Registro.LOG.warning("Error al procesar AJAX para modificar el artista");
@@ -134,7 +90,7 @@ public class AccionArtista extends HttpServlet {
 
                     aFacade.remove(aEliminar);
                     Registro.LOG.info("Artista eliminado correctamente, redireccionando");
-
+                    resp.sendRedirect("doSession?session=todas&forward=Artista");
                     return;
                 default:
                     throw new Exception("Error al procesar la solicitud GET");
@@ -169,7 +125,7 @@ public class AccionArtista extends HttpServlet {
                 Registro.LOG.info("Agregado artista a db, redireccionando");
 
                 req.setAttribute("resultado", "Agregado correctamente!");
-                resp.sendRedirect("./Artista?action=listar");
+                resp.sendRedirect("doSession?session=todas&forward=Artista");
 
             } else {
                 throw new Exception("POST PARAMETERS EMPTY");
